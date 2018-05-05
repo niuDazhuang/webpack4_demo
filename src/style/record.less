@@ -1,0 +1,62 @@
+@import "_color.less";
+/**
+  最好全部移至common.less 以利用缓存
+**/
+
+.progress {
+    padding: 0 20px;
+    background: #fff;
+    &-total {
+      color: @color-theme;
+      font-size: 16px;
+      text-align: right;
+    }
+    &-dash {
+      position: relative;
+      height: 4px;
+      background: linear-gradient(to right, #eee, #eee 5px, transparent 5px, transparent);
+      background-size: 10px 100%;
+    }
+    &-inner {
+      position: absolute;
+      width: 0;
+      height: 100%;
+      background: @color-theme;
+      transition: width .6s;
+      border-radius: 2px;
+    }
+}
+.highcharts-xaxis .highcharts-axis-line {
+    stroke-width: 2;
+    stroke-dasharray: 3 3;
+}
+
+#datepicker {
+  border: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 18px;
+  color: @color-theme;
+}
+.datepicker {
+  border: 0;
+  width: 100vw;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 18px;
+  color: @color-theme;
+  background: #fff;
+}
+#selected {
+  font-size: 16px;
+  background: #fff;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+.card_icon {
+  width: 20px;
+  // vertical-align: middle;
+  margin-right: 6px;
+}
+

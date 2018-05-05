@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <title>统计</title>
+</head>
+<body>
+    <div class="container">
+        <div id="tab" class="tab">
+            <div class="item active" data-type="1">日</div>
+            <div class="item" data-type="2">周</div>
+            <div class="item" data-type="3">月</div>
+        </div>
+        <div class="chart-bar" id="chartBar"></div>
+        <div class="card flex1" id="tongji"></div>
+        <div class="card sb" id="shichang"></div>
+        <div class="card column">
+            <div class="chart-line" id="chartLineRulerXinLv"></div>
+            <div class="card-content f-12">
+                心率变化反映出机体运动中的功能水平、能量代谢、训练负荷强度及身体功能恢复程度，循序渐进，切勿过度锻炼。
+            </div>
+            <div class="flex-sb" id="xinlv"></div>
+            <hr style="width:100%;margin-top: 20px;border:0;height:2px;background-color:#e9ecf0">
+            <div class="chart-pie" id="chartPie"></div>
+            {{ include '../../tpls/range.htm' }}
+        </div>
+        <div class="card column">
+            <div class="chart-line" id="chartLineRulerPeiSu"></div>
+            <div class="card-content f-12">
+                每个人的速度与个人体能等因素息息相关，建议循序渐进，持续保持健康状态。
+            </div>
+            <div class="flex-sb" id="sudu"></div>
+        </div>
+        <div class="card column">
+            <div class="chart-line" id="chartLineRulerYinShui"></div>
+            <div class="card-content f-12">
+                每个人的饮水量与运动强度、时长、类型、年龄体重等息息相关，并没有统一的标准值。
+            </div>
+            <div class="flex-sb" id="yinshui"></div>
+        </div>
+        <div class="card column">
+            <div class="chart-line" id="chartLineRulerDaiXie"></div>
+            <div class="card-content f-12">
+                再生值是人体新陈代谢再生的数值，通过个人数据进行计算得出， 并没有统一的标准值。
+            </div>
+            <div class="flex-sb" id="daixie"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <title>心率</title>
+</head>
+<body>
+    <div class="container">
+        <div class="fixed-top">
+            <input id="datepicker" type="text" readonly="" value="今天" style="color: #fe2b5f">
+        </div>
+        <div class="chart-bar mt-42" id="chartBar"></div>
+        {{ include '../../tpls/xinlvzhicankao.htm' }}
+        <div class="card column">
+            <div class="chart-line" id="chartLineXinLv"></div>
+            <div class="flex-sb" id="xinlv"></div>
+            <div class="chart-pie" id="chartPie"></div>
+            {{ include '../../tpls/range.htm' }}
+        </div>
+    </div>
+</body>
+</html>
