@@ -9,6 +9,7 @@ module.exports = merge(base, {
     hot: true,
     host: 'localhost',
     open: true,
+    openPage: 'record.html',
     quiet: true,
     proxy: {
       '/api': {
