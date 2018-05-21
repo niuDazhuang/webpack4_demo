@@ -12,8 +12,8 @@ module.exports = merge(base, {
     openPage: 'record.html',
     quiet: true,
     proxy: {
-      '/api': {
-        target: 'http://127.0.0.1:3000',
+      '/index.php': {
+        target: 'http://120.24.55.58:8083/',
         changeOrigin: true
       }
     }

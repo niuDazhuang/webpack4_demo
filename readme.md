@@ -6,7 +6,6 @@
 - webpack@4
 - highcharts
 - art-template
-- typescript 
 - less
 
 ## install

@@ -1,8 +1,8 @@
 import Highcharts from 'highcharts'
 
 export default {
-  getBarRecord(opts, callback) {
-    const { data, color, yAxisVisible } = opts
+  getBarRecord(opts) {
+    const { data, color, yAxisVisible, handleClick } = opts
     return {
       chart: {
         type: 'column'
@@ -36,7 +36,7 @@ export default {
         },
         column: {
           events: {
-            click: callback
+            click: handleClick
           }
         }
       },
@@ -76,6 +76,19 @@ export default {
       credits: {
         enabled: false
       },
+      xAxis: {
+        type: 'datetime',
+        range: 2,
+        tickWidth: 0,
+        dateTimeLabelFormats: {
+          day: '%m-%d',
+          week: '%e. %b',
+          month: '%m月'
+        },
+        labels: {
+          x: labelx
+        }
+      },
       yAxis: {
         visible: false
       },
@@ -89,20 +102,6 @@ export default {
         },
         xDateFormat: '%Y-%m-%d',
         valueSuffix: ' km'
-      },
-      xAxis: {
-        type: 'datetime',
-        range: 2,
-        tickPosition: 'inside',
-        dateTimeLabelFormats: {
-          day: '%m-%d',
-          week: '%e. %b',
-          month: '%m月'
-        },
-        labels: {
-          // align: 'right',
-          x: labelx
-        }
       },
       series: [{
         type: 'column',
@@ -215,7 +214,6 @@ export default {
     }
   },
   getLineStatistic(opts, callback) {
-    console.log(opts)
     const { data, color } = opts
     return {
       chart: {

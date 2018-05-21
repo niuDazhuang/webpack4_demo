@@ -1,4 +1,5 @@
-@import "_color.less";
+@import "_setting.less";
+@import "_atom.less";
 
 html {
   font-size: 14px;
@@ -11,52 +12,6 @@ body {
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   padding-bottom: 30px;
-}
-
-.tr {
-  text-align: right
-}
-
-.f {
-  &-12 { font-size: 12px; }
-  &-13 { font-size: 13px; }
-  &-14 { font-size: 14px; }
-  &-15 { font-size: 15px; }
-  &-16 { font-size: 16px; }
-  &-warn { color: @color-warn; }
-  &-p { color: @color-pink; }
-  &-b { color: @color-blue; }
-  &-g { color: @color-green; }
-  &-gray { color: @color-gray; }
-}
-
-.mt {
-  &-20 { margin-top: 20px }
-  &-42 { margin-top: 42px }
-}
-
-.fixed-top {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 100;
-  opacity: 0.9;
-  border-bottom: 1px solid #eee;
-}
-
-.flex {
-  display:flex;
-  align-items:center;
-  &-sa {
-    &:extend(.flex);
-    width: 100%;
-    justify-content: space-around;
-  }
-  &-sb {
-    &:extend(.flex);
-    width: 100%;
-    justify-content: space-between;
-  }
 }
 
 .flex1 {
@@ -122,7 +77,7 @@ body {
 
 .intro {
   display: flex;
-  width: 110%;
+  width: 85vw;
   .item {
     flex: 1;
     font-size: 12px;

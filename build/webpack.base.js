@@ -1,16 +1,31 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const shell = require('shelljs')
 
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
+const resolve = dir => path.join(__dirname, '..', dir)
+
+const indexList = shell.find('./src/pages')
+  .filter(file => file.match(/\.js$/))
+  .map(file => ({
+    key: /\/pages\/(\w+)\/index\.js$/.exec(file)[1],
+    js: `./${file}`,
+    html: `./${file.replace(/\.js$/, '.html')}`
+  }))
+
+const entry = indexList
+  .reduce((pre, {key, js}) => (pre[key] = js, pre), {})
+
+const htmlPlugins = indexList
+  .map(({key, html}) => ({
+    template: html,
+    filename: `./${key}.html`,
+    title: `css3-${key}`,
+    chunks: [key, 'vendor']
+  }))
+  .map(item => new HtmlWebpackPlugin(item))
 
 module.exports = {
-  entry: {
-    record: './src/pages/record/index.js',
-    statistic: './src/pages/statistic/index.js',
-    xinlv: './src/pages/xinlv/index.js',
-  },
+  entry,
   output: {
     filename: 'js/[name]_[hash:6].js',
     path: path.resolve('dist')
@@ -58,26 +73,12 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.ts', '.json', '.css', '.less'],
+    extensions: ['.js', '.json', '.css', '.less'],
     alias: {
       '@': resolve('src'),
     }
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/pages/record/index.html',
-      filename: './record.html',
-      chunks: ['record', 'vendor']
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/pages/statistic/index.html',
-      filename: './statistic.html',
-      chunks: ['statistic', 'vendor']
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/pages/xinlv/index.html',
-      filename: './xinlv.html',
-      chunks: ['xinlv', 'vendor']
-    })
+    ...htmlPlugins
   ]
 }

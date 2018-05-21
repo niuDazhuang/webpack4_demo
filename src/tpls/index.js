@@ -47,11 +47,11 @@ const transform = data => {
 }
 
 /**
- * Tpl
+ * Page
  * init自动执行
  * data初始化页面
  */
-export default class Tpl {
+export default class Page {
   constructor (opts) {
     Object.assign(this, opts)
     this.init()

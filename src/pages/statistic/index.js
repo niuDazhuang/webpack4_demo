@@ -2,10 +2,11 @@ import '@/style/common'
 import '@/style/statistic'
 import Highcharts from 'highcharts'
 import options from '@/script/options'
-import mock from '@/script/mock'
-import Tpl from '@/tpls'
+import ajax from '@/script/ajax'
+import Page from '@/tpls'
+import { addDotBetween } from '@/script/ext'
 
-new Tpl({
+new Page({
   data: {
     shichang: { hours: 2, minutes: 10 },
     tongji: { bushu: 13, licheng: 300, reliang: 666 },
@@ -43,10 +44,25 @@ new Tpl({
     }
   },
   init () {
-    this.initTab()
-    this.initCharts('2')
+    ajax({
+      url: 'mock/statistic',
+      params: {
+        uid: '12',
+        date: '2018-04-18',
+        data_type: '1',
+        type_id: '1'
+      },
+      onSuccess: ({data}) => {
+        this.fetchData = data
+        this.initTabDom()
+        this.initCharts('2')
+      },
+      onError (res) {
+        console.error(res.errmsg)
+      }
+    })
   },
-  initTab () {
+  initTabDom () {
     const tab = document.getElementById('tab')
     const handleTabClick = e => {
       if (e.target.className === 'item') {
@@ -60,17 +76,37 @@ new Tpl({
     tab.addEventListener('click', handleTabClick)
   },
   initCharts (type) {
-    const barType = ['barDay', 'barWeek', 'barMonth'][~~type - 1]
-    Highcharts.chart('chartBar', options.getBarStatistic(mock[barType]))
-    Highcharts.chart('chartPie', options.getPieStatistic(mock.pie))
-    Highcharts.chart('chartLineRulerXinLv', options.getLineStatistic(mock.xinlv, this.updateDom('xinlv')))
-    Highcharts.chart('chartLineRulerPeiSu', options.getLineStatistic(mock.peisu, this.updateDom('sudu')))
-    Highcharts.chart('chartLineRulerYinShui', options.getLineStatistic(mock.yinshui, this.updateDom('yinshui')))
-    Highcharts.chart('chartLineRulerDaiXie', options.getLineStatistic(mock.daixie, this.updateDom('daixie')))
+    const { day, week, month, pie, xinlv, peisu, yinshui, daixie } = this.fetchData
+    const barDay = { type: 'day', labelx: 15, data: day }
+    const barWeek = { type: 'week', labelx: 0, data: week }
+    const barMonth = { type: 'month', labelx: -27, data: month }
+  
+    Highcharts.chart('chartBar', options.getBarStatistic([barDay, barWeek, barMonth][~~type - 1]))
+  
+    Highcharts.chart('chartPie', options.getPieStatistic(pie))
+  
+    Highcharts.chart('chartLineRulerXinLv', options.getLineStatistic({
+      color: '#fe2b5f',
+      data: addDotBetween(xinlv, 'red')
+    }, this.updateDom('xinlv')))
+  
+    Highcharts.chart('chartLineRulerPeiSu', options.getLineStatistic({
+      color: '#4098e2',
+      data: addDotBetween(peisu, 'blue')
+    }, this.updateDom('sudu')))
+  
+    Highcharts.chart('chartLineRulerYinShui', options.getLineStatistic({
+      color: '#00d977',
+      data: addDotBetween(yinshui, 'green')
+    }, this.updateDom('yinshui')))
+  
+    Highcharts.chart('chartLineRulerDaiXie', options.getLineStatistic({
+      color: '#fe2b5f',
+      data: addDotBetween(daixie, 'red')
+    }, this.updateDom('daixie')))
   },
   updateDom (id) {
     return data => {
-      console.log(this)
       let time = `10月2日 ${data.target.x}:00`
       let value = data.target.y
       this.data[id] = Object.assign(this.data[id], {time, value})
