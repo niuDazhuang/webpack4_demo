@@ -64,12 +64,13 @@ new Page({
   },
   initCharts () {
     const { bar, xinlv, peisu, yinshui, daixie } = this.fetchData
-    Highcharts.chart('chartBar', options.getBarRecord({
+    this.chartbar = Highcharts.chart('chartBar', options.getBarRecord({
       color: '#4098ea',
       yAxisVisible: false,
       data: bar,
       handleClick: e => this.updateSelected(e.point.name)
     }))
+    this.chartbar.tooltip.refresh(this.chartbar.series[0].points[bar.length-1])
     Highcharts.chart('chartLineXinLv', options.getLineRecord({
       name: '心率',
       color: '#fe2b5f',
