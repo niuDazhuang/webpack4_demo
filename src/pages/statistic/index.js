@@ -77,11 +77,13 @@ new Page({
   },
   initCharts (type) {
     const { day, week, month, pie, xinlv, peisu, yinshui, daixie } = this.fetchData
-    const barDay = { type: 'day', labelx: 15, data: day }
-    const barWeek = { type: 'week', labelx: 0, data: week }
-    const barMonth = { type: 'month', labelx: -27, data: month }
+    const barDay = { type: 'day', labelx: 15, data: day, suffix: 'km' }
+    const barWeek = { type: 'week', labelx: 0, data: week, suffix: 'km' }
+    const barMonth = { type: 'month', labelx: -27, data: month, suffix: 'km' }
+    const bar = [barDay, barWeek, barMonth][~~type - 1]
   
-    Highcharts.chart('chartBar', options.getBarStatistic([barDay, barWeek, barMonth][~~type - 1]))
+    this.chartbar = Highcharts.chart('chartBar', options.getBarStatistic(bar))
+    this.chartbar.tooltip.refresh(this.chartbar.series[0].points[bar.data.length-1])
   
     Highcharts.chart('chartPie', options.getPieStatistic(pie))
   
