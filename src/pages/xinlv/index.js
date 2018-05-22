@@ -13,10 +13,11 @@ require('@/script/ext')
 
 new Page({
   data: {
+    xinlvtongji: {range: '12-20', max: 20, min: 12, average: 11}
   },
   init () {
     ajax({
-      url: 'mock/xinlv',
+      url: 'heart_rate/get_heart_rate_data',
       params: {
         uid: '12',
         date: '2018-04-18',
@@ -24,7 +25,31 @@ new Page({
         type_id: '1'
       },
       onSuccess: ({data}) => {
-        this.fetchData = data
+        let bar = []
+        let line = []
+        let max = 0
+        let min = data[0].max_heart_rate
+        let sum = 0
+        data.forEach(({x, avg_heart_rate, max_heart_rate}) => {
+          bar.push([`${x-1}:00-${x}:00`, avg_heart_rate])
+          line.push([`${x-1}:00-${x}:00`, max_heart_rate])
+          max < max_heart_rate && (max = max_heart_rate)
+          min > max_heart_rate && (min = max_heart_rate)
+          sum += max_heart_rate
+        })
+        this.data.xinlvtongji = {range: `${min}-${max}`, max, min, average: sum / data.length}
+        this.fetchData = {
+          bar,
+          line,
+          pie: [
+            ['无氧', 45.0],
+            ['强有氧', 26.8],
+            ['中等有氧', 12.8],
+            ['燃脂', 8.5],
+            ['轻量燃脂', 6.2],
+            ['不在区间', 3.7]
+          ]
+        }
         this.initCalendar()
         this.initCharts()
       },
@@ -60,11 +85,14 @@ new Page({
   initCharts () {
     const { bar, line, pie } = this.fetchData
     Highcharts.chart('chartBar', options.getBarRecord({
+      name: '平均值',
+      suffix: ' bpm',
       color: '#fe2b5f',
       yAxisVisible: true,
       data: bar
     }))
     Highcharts.chart('chartLineXinLv', options.getLineXinlv({
+      name: '峰值',
       color: '#fe2b5f',
       data: line
     }))

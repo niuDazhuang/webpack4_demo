@@ -2,7 +2,7 @@ import Highcharts from 'highcharts'
 
 export default {
   getBarRecord(opts) {
-    const { data, color, yAxisVisible, handleClick } = opts
+    const { name, suffix, data, color, yAxisVisible, handleClick } = opts
     return {
       chart: {
         type: 'column'
@@ -25,10 +25,9 @@ export default {
         borderWidth: 0,
         borderRadius: 6,
         backgroundColor: Highcharts.Color(color).setOpacity(0.8).get('rgba'),
-        style: {
-          color: '#fff',
-        },
-        valueSuffix: ' km'
+        style: { color: '#fff' },
+        headerFormat: '{point.y}',
+        pointFormat: suffix
       },
       plotOptions: {
         series: {
@@ -50,15 +49,16 @@ export default {
         }
       },
       series: [{
-        name: '里程数',
+        name,
         data
       }]
     }
   },
   getBarStatistic(opts) {
-    const { data, labelx } = opts
+    const { xs, data, suffix, fontSize } = opts
     return {
       chart: {
+        type: 'column',
         panning: true,
         pinchType: 'x',
         resetZoomButton: {
@@ -76,17 +76,18 @@ export default {
       credits: {
         enabled: false
       },
+      plotOptions: {
+        series: {
+          pointWidth: 30
+        }
+      },
       xAxis: {
-        type: 'datetime',
         range: 2,
         tickWidth: 0,
-        dateTimeLabelFormats: {
-          day: '%m-%d',
-          week: '%e. %b',
-          month: '%m月'
-        },
+        categories: xs,
         labels: {
-          x: labelx
+          autoRotation: false,
+          style: { color: "#666666", fontSize: fontSize || '11px' }
         }
       },
       yAxis: {
@@ -97,15 +98,11 @@ export default {
         borderWidth: 0,
         borderRadius: 6,
         backgroundColor: '#4098ea',
-        style: {
-          color: '#fff',
-        },
-        xDateFormat: '%Y-%m-%d',
-        valueSuffix: ' km'
+        style: { color: '#fff' },
+        headerFormat: '{point.y}',
+        pointFormat: suffix
       },
       series: [{
-        type: 'column',
-        name: '当天总里程',
         data
       }]
     }
@@ -159,7 +156,7 @@ export default {
     }
   },
   getLineXinlv(opts) {
-    const { data, color } = opts
+    const { name, data, color } = opts
     return {
       chart: {
         type: 'spline',
@@ -190,7 +187,8 @@ export default {
         backgroundColor: Highcharts.Color('#fff').setOpacity(0.9).get('rgba'),
         useHTML: true,
         borderWidth: 0,
-        borderRadius: 10
+        borderRadius: 10,
+        valueSuffix: ' bpm'
       },
       plotOptions: {
         spline: {
@@ -201,6 +199,7 @@ export default {
       },
       series: [{
         data,
+        name,
         zones: [
           { value: 100, color: '#d8d8d8' },
           { value: 120, color: '#4098e2' },

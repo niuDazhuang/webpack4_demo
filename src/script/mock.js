@@ -19,9 +19,43 @@ mock('/index.php/waterworld/mock/record', {
 mock('/index.php/waterworld/mock/statistic', {
   'errcode': 0,
   'data': {
-    'day': Array.from({length: 30}, (item,i) => [Date.now() - (29 - i) * 24*60*60*1000, natural(0, 100)]),
-    'week': Array.from({length: 30}, (item,i) => [Date.now() - (29 - i) * 7*24*60*60*1000, natural(0, 100)]),
-    'month': Array.from({length: 30}, (item,i) => [Date.now() - (29 - i) * 30*24*60*60*1000, natural(0, 100)]),
+    'day': [
+      ['10/25', natural(0, 100)],
+      ['10/26', natural(0, 100)],
+      ['10/27', natural(0, 100)],
+      ['10/28', natural(0, 100)],
+      ['10/29', natural(0, 100)],
+      ['10/25', natural(0, 100)],
+      ['10/26', natural(0, 100)],
+      ['10/27', natural(0, 100)],
+      ['10/28', natural(0, 100)],
+      ['10/29', natural(0, 100)],
+      ['10/25', natural(0, 100)],
+      ['10/26', natural(0, 100)],
+      ['10/27', natural(0, 100)],
+      ['10/28', natural(0, 100)],
+      ['10/29', natural(0, 100)],
+      ['10/25', natural(0, 100)],
+      ['10/26', natural(0, 100)],
+      ['10/27', natural(0, 100)],
+      ['10/28', natural(0, 100)],
+      ['10/29', natural(0, 100)],
+      ['昨天', natural(0, 100)],
+      ['今天', natural(0, 100)]
+    ],
+    'week': [
+      ['10/1-10/5', natural(0, 100)],
+      ['10/5-10/10', natural(0, 100)],
+      ['10/10-10/15', natural(0, 100)],
+      ['10/15-10/20', natural(0, 100)],
+      ['上周', natural(0, 100)],
+      ['本周', natural(0, 100)]
+    ],
+    'month': [
+      ['8月', natural(0, 100)],
+      ['上月', natural(0, 100)],
+      ['本月', natural(0, 100)]
+    ],
     'xinlv': point(25, [80, 160]),
     'peisu': point(25, [0, 20]),
     'yinshui': point(25, [0, 8]),
@@ -37,6 +71,7 @@ mock('/index.php/waterworld/mock/statistic', {
   }
 })
 
+// 可删
 mock('/index.php/waterworld/mock/xinlv', {
   'errcode': 0,
   'data': {
@@ -51,4 +86,26 @@ mock('/index.php/waterworld/mock/xinlv', {
       ['不在区间', 3.7]
     ]
   }
+})
+
+// xinlv
+mock('/index.php/waterworld/heart_rate/get_heart_rate_data', {
+  'errcode': 0,
+  'data': [{
+    'x': 1,
+    'avg_heart_rate': natural(90, 190),
+    'max_heart_rate': natural(90, 190)
+  }, {
+    'x': 2,
+    'avg_heart_rate': natural(90, 190),
+    'max_heart_rate': natural(90, 190)
+  }, {
+    'x': 3,
+    'avg_heart_rate': natural(90, 190),
+    'max_heart_rate': natural(90, 190)
+  }, {
+    'x': 4,
+    'avg_heart_rate': natural(90, 190),
+    'max_heart_rate': natural(90, 190)
+  }]
 })

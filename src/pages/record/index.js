@@ -65,6 +65,8 @@ new Page({
   initCharts () {
     const { bar, xinlv, peisu, yinshui, daixie } = this.fetchData
     this.chartbar = Highcharts.chart('chartBar', options.getBarRecord({
+      name: '里程数',
+      suffix: 'km',
       color: '#4098ea',
       yAxisVisible: false,
       data: bar,

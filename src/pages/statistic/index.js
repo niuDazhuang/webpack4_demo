@@ -55,7 +55,7 @@ new Page({
       onSuccess: ({data}) => {
         this.fetchData = data
         this.initTabDom()
-        this.initCharts('2')
+        this.initCharts('1')
       },
       onError (res) {
         console.error(res.errmsg)
@@ -77,9 +77,9 @@ new Page({
   },
   initCharts (type) {
     const { day, week, month, pie, xinlv, peisu, yinshui, daixie } = this.fetchData
-    const barDay = { type: 'day', labelx: 15, data: day, suffix: 'km' }
-    const barWeek = { type: 'week', labelx: 0, data: week, suffix: 'km' }
-    const barMonth = { type: 'month', labelx: -27, data: month, suffix: 'km' }
+    const barDay = { type: 'day', xs: day.map(x => x[0]), data: day.map(x => x[1]), suffix: 'km' }
+    const barWeek = { type: 'week', xs: week.map(x => x[0]), data: week.map(x => x[1]), suffix: 'km', fontSize: '8px' }
+    const barMonth = { type: 'month', xs: month.map(x => x[0]), data: month.map(x => x[1]), suffix: 'km' }
     const bar = [barDay, barWeek, barMonth][~~type - 1]
   
     this.chartbar = Highcharts.chart('chartBar', options.getBarStatistic(bar))

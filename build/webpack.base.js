@@ -30,6 +30,9 @@ module.exports = {
     filename: 'js/[name]_[hash:6].js',
     path: path.resolve('dist')
   },
+  externals:{ 
+    Highcharts: 'Highcharts'
+  },
   module: {
     rules: [
       {
@@ -47,10 +50,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-      },
-      {
-        test: /\.ts$/,
-        use: 'ts-loader'
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/,
