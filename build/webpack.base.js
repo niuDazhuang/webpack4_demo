@@ -5,11 +5,11 @@ const shell = require('shelljs')
 const resolve = dir => path.join(__dirname, '..', dir)
 
 const indexList = shell.find('./src/pages')
-  .filter(file => file.match(/\.js$/))
+  .filter(file => file.match('index.js'))
   .map(file => ({
     key: /\/pages\/(\w+)\/index\.js$/.exec(file)[1],
     js: `./${file}`,
-    html: `./${file.replace(/\.js$/, '.html')}`
+    html: `./${file.replace('index.js', 'index.html')}`
   }))
 
 const entry = indexList
